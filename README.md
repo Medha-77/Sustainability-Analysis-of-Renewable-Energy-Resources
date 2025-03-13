@@ -14,17 +14,24 @@ This project, **Renewable Energy Resource Analysis**, is part of my Data Analyst
 
 ![Image](https://github.com/user-attachments/assets/75cb98ba-db9e-4b58-9024-bb2ee940c3e6)
 
+
 ![Image](https://github.com/user-attachments/assets/125d86ec-9c6b-4797-8e43-e9a60801bf67)
+
 
 ![Image](https://github.com/user-attachments/assets/8ed276cf-ca96-4f87-a18e-4fe888c23364)
 
+
 ![Image](https://github.com/user-attachments/assets/867eaa30-f258-4ee8-a2c3-ff86a945a31a)
+
 
 ![Image](https://github.com/user-attachments/assets/88a185b4-b363-42e6-bab9-abd00e5ec926)
 
+
 ![Image](https://github.com/user-attachments/assets/21523090-0a16-40e2-9aad-22b17184d985)
 
+
 ![Image](https://github.com/user-attachments/assets/1f1d24fc-4a66-498f-a9e7-6aa368927587)
+
 
 
 *   **Data Transformation & Preparation:** Snowflake SQL - Employed Snowflake SQL for extensive data transformation, cleaning, and preparation tasks to ensure data quality and analytical readiness.
