@@ -1,4 +1,4 @@
-# Project: Renewable Energy Resource Analysis - Data Analyst Portfolio
+# Project: Renewable Energy Resource Analysis
 
 ## Overview
 
