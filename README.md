@@ -1,217 +1,194 @@
-# Project: Renewable Energy Resource Analysis
 
-## Overview
+# 🌍 **Renewable Energy Resource Analysis** –
+## 📌 **Project Overview**  
+This project, **Renewable Energy Resource Analysis**, demonstrates my ability to leverage **cloud technologies (Snowflake, AWS S3) and data visualization tools (Tableau)** to analyze large-scale renewable energy datasets.  
 
-This project, **Renewable Energy Resource Analysis**, is part of my Data Analyst portfolio and demonstrates my ability to leverage cloud technologies and data visualization tools to analyze complex datasets and extract actionable insights within the renewable energy sector.
+### 🎯 **Project Goal**  
+To assess the availability and potential of **renewable energy resources** by analyzing:  
+- **Energy source distribution**  
+- **Regional variations**  
+- **Consumption patterns**  
+- **Cost savings based on energy adoption**  
 
-**Project Goal:**  To assess the availability and potential of renewable energy resources, focusing on factors such as energy source distribution, regional variations, and consumption patterns.  The aim was to provide data-driven insights that could inform energy planning and resource utilization strategies.
+The insights help in **energy planning and resource optimization.**  
 
-**Key Technologies Used:**
+---  
 
-*   **Data Warehousing:** Snowflake -  Used as a cloud data warehouse for efficient storage, management, and querying of large renewable energy datasets.
-*   **Data Integration & Cloud Storage:** AWS (likely S3) - Leveraged AWS cloud services, particularly S3, for accessing, managing, and storing the agricultural datasets and for secure data integration with Snowflake.
-*   **Data Visualization & Dashboarding:** Tableau - Utilized Tableau Desktop to connect to Snowflake and develop interactive dashboards for visualizing and exploring renewable energy resource data.
+## 🏆 **Key Insights from the Analysis**  
+✅ **Renewable energy adoption is higher in urban areas**, with solar and wind energy being the dominant sources.  
+✅ **Lower-income households tend to consume less energy**, but **cost savings are higher** due to subsidies.  
+✅ **High-income groups benefit more from long-term savings**, as they invest more in energy-efficient systems.  
+✅ **Regions with higher adoption rates have lower average monthly energy costs.**  
+✅ **Government subsidies play a significant role in increasing renewable energy adoption.**  
 
-![Image](https://github.com/user-attachments/assets/75cb98ba-db9e-4b58-9024-bb2ee940c3e6)
+---  
 
+## 🛠 **Technologies Used**  
 
-![Image](https://github.com/user-attachments/assets/125d86ec-9c6b-4797-8e43-e9a60801bf67)
+| Technology  | Purpose  |
+|-------------|---------|
+| **Snowflake**  | Cloud data warehouse for storing and processing renewable energy data.  |
+| **AWS S3**  | Storage of raw CSV files before loading into Snowflake.  |
+| **Tableau**  | Data visualization to create **interactive dashboards** and reports. |
 
+---
 
-![Image](https://github.com/user-attachments/assets/8ed276cf-ca96-4f87-a18e-4fe888c23364)
+## 📂 **Project Structure**  
+```
+/data/                   # [Optional] Could contain sample CSV data files
+/sql/                    # Snowflake SQL scripts for data management
+    create_integration.sql           # Creates Storage Integration with AWS S3
+    create_database_schema_table.sql # Creates database, schema, and table
+    create_stage.sql                 # Creates external stage for S3 connection
+    load_data.sql                     # Loads CSV data from S3 into Snowflake
+    transform_data.sql                # Cleans and transforms data
+/tableau/                # Contains Tableau workbook (.twb or .twbx) file
+README.md               # Project documentation
+```
 
+---
 
-![Image](https://github.com/user-attachments/assets/867eaa30-f258-4ee8-a2c3-ff86a945a31a)
+## 🔧 **Setup Instructions**  
 
+### 🔹 **Prerequisites**  
+- **AWS account** with S3 access  
+- **Snowflake account**  
+- **Tableau Desktop installed**  
 
-![Image](https://github.com/user-attachments/assets/88a185b4-b363-42e6-bab9-abd00e5ec926)
+### 🔹 **AWS S3 Configuration**  
+1. Create an **S3 bucket** (e.g., `tableau.project07`) in a region supported by Snowflake.  
+2. Upload your **renewable energy data (CSV format)** to the S3 bucket.  
 
+---
 
-![Image](https://github.com/user-attachments/assets/21523090-0a16-40e2-9aad-22b17184d985)
+## 📊 **Snowflake SQL Code for Data Management & Transformation**  
 
+### **1️⃣ Create Database, Schema, and Table**  
+```sql
+CREATE database tableau;
+CREATE schema tableau_Data;
+CREATE table tableau_dataset (
+    Household_ID STRING,
+    Region STRING,
+    Country STRING,
+    Energy_Source STRING,
+    Monthly_Usage_kWh FLOAT,
+    Year INT,
+    Household_Size INT,
+    Income_Level STRING,
+    Urban_Rural STRING,
+    Adoption_Year INT,
+    Subsidy_Received STRING,
+    Cost_Savings_USD FLOAT
+);
+```
 
-![Image](https://github.com/user-attachments/assets/1f1d24fc-4a66-498f-a9e7-6aa368927587)
-
-
-
-*   **Data Transformation & Preparation:** Snowflake SQL - Employed Snowflake SQL for extensive data transformation, cleaning, and preparation tasks to ensure data quality and analytical readiness.
-
-
-## Snowflake SQL Code for Data Management and Transformation
-
-The following Snowflake SQL code was a crucial part of this project, demonstrating my skills in:
-
-*   **Secure Data Integration:**  Setting up secure connections between AWS S3 and Snowflake using Storage Integrations and IAM Roles.
-*   **Data Warehousing Architecture:**  Creating databases, schemas, and tables within Snowflake to structure and organize the renewable energy dataset.
-*   **ETL Processes:**  Loading data from AWS S3 into Snowflake using the `COPY INTO` command.
-*   **Data Cleaning and Transformation:**  Writing and executing SQL scripts to cleanse, standardize, and transform the data for effective analysis.
-
+### **2️⃣ Create a Secure Storage Integration with AWS S3**  
 ```sql
 CREATE OR REPLACE STORAGE INTEGRATION Tableau_Integration
-  TYPE = EXTERNAL_STAGE
-  STORAGE_PROVIDER = 'S3'
-  ENABLED = TRUE
-  STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::881490122441:role/Tableau.role'
-  STORAGE_ALLOWED_LOCATIONS = ('s3://Tableau.project07/')
-  COMMENT = 'Optional Comment';
+    TYPE = EXTERNAL_STAGE
+    STORAGE_PROVIDER = 'S3'
+    ENABLED = TRUE
+    STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::YOUR_AWS_ACCOUNT_ID:role/YOUR_IAM_ROLE'
+    STORAGE_ALLOWED_LOCATIONS = ('s3://YOUR_S3_BUCKET/')
+    COMMENT = 'Snowflake integration with AWS S3 for Tableau data';
+DESC INTEGRATION Tableau_Integration;
+```
 
-
-  --description Integration Object
-  desc integration Tableau_Integration;
-
-
-
-CREATE database tableau;
-
-create schema tableau_Data;
-
-create table tableau_dataset (
-Household_ID	string,Region	string,Country	string,Energy_Source	string,
-Monthly_Usage_kWh	float,Year	int,Household_Size	int,Income_Level	string,
-Urban_Rural	string,Adoption_Year	int,Subsidy_Received	string,Cost_Savings_USD float
-
-
-
-
-);
-DESC INTEGRATION tableau_Integration;
-
-select * from TABLEAU_DATASET;
-
-
-ALTER STORAGE INTEGRATION tableau_Integration
-SET STORAGE_ALLOWED_LOCATIONS = ('s3://tableau.project07');
-DESC STORAGE INTEGRATION tableau_Integration;
-
+### **3️⃣ Create External Stage for Data Loading**  
+```sql
 CREATE STAGE tableau.tableau_Data.tableau_stage
-URL = 's3://tableau.project07'
-STORAGE_INTEGRATION = tableau_Integration;
-//desc stage s1
+    URL = 's3://YOUR_S3_BUCKET'
+    STORAGE_INTEGRATION = Tableau_Integration;
+```
 
-//drop stage s1;
+### **4️⃣ Load Data from S3 into Snowflake**  
+```sql
+COPY INTO tableau_dataset
+FROM @tableau_stage
+FILE_FORMAT = (TYPE=CSV FIELD_DELIMITER=',' SKIP_HEADER=1)
+ON_ERROR = 'continue';
+```
 
+### **5️⃣ Data Transformation: Adjusting Consumption & Cost Savings**  
+```sql
+CREATE TABLE energy_consumption AS SELECT * FROM tableau_dataset;
 
-copy into tableau_dataset
-from @tableau_stage
-file_format = (type=csv field_delimiter=',' skip_header=1 )
-on_error = 'continue';
+-- Adjust MONTHLY_USAGE_KWH based on income level
+UPDATE energy_consumption 
+SET MONTHLY_USAGE_KWH = MONTHLY_USAGE_KWH * 1.1 
+WHERE LOWER(income_level) = 'low';
 
-LIST @tableau_stage;
+UPDATE energy_consumption 
+SET MONTHLY_USAGE_KWH = MONTHLY_USAGE_KWH * 1.2 
+WHERE LOWER(TRIM(income_level)) = 'middle';
 
-select * from tableau_dataset;
-SELECT region,count(*) from tableau_dataset group by region;
-
-create table energy_consumption as select *from tableau_dataset;
-
-select * from energy_consumption;
-select income_level, count (*) from energy_consumption group by income_level;
-
-
---Increase MONTHLY_USAGE_KWH
--- Update 1
-SELECT DISTINCT income_level FROM energy_consumption;
-UPDATE energy_consumption SET "MONTHLY_USAGE_KWH" = "MONTHLY_USAGE_KWH" * 1.1 WHERE LOWER(income_level) = 'low';
-
--- Update 2
-UPDATE energy_consumption SET monthly_usage_kwh = monthly_usage_kwh * 1.2 WHERE LOWER(TRIM(income_level)) = 'middle';
-
--- Update 3
-SELECT DISTINCT income_level FROM energy_consumption;
-UPDATE energy_consumption SET "MONTHLY_USAGE_KWH" = "MONTHLY_USAGE_KWH" * 1.3 WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'high';
-
---Increase COST_SAVINGS_USD
--- Update 1: Increase COST_SAVINGS_USD by 10% for 'low' income level
-UPDATE energy_consumption
-SET "COST_SAVINGS_USD" = "COST_SAVINGS_USD" * 1.1
-WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'low';
-
--- Update 2: Increase COST_SAVINGS_USD by 20% for 'middle' income level
-UPDATE energy_consumption
-SET "COST_SAVINGS_USD" = "COST_SAVINGS_USD" * 1.2
-WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'middle';
-
--- Update 3: Increase COST_SAVINGS_USD by 30% for 'high' income level
-UPDATE energy_consumption
-SET "COST_SAVINGS_USD" = "COST_SAVINGS_USD" * 1.3
+UPDATE energy_consumption 
+SET MONTHLY_USAGE_KWH = MONTHLY_USAGE_KWH * 1.3 
 WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'high';
 
-
-  --description Integration Object
-  desc integration Tableau_Integration;
-
-
-
-CREATE database tableau;
-
-create schema tableau_Data;
-
-create table tableau_dataset (
-Household_ID	string,Region	string,Country	string,Energy_Source	string,
-Monthly_Usage_kWh	float,Year	int,Household_Size	int,Income_Level	string,
-Urban_Rural	string,Adoption_Year	int,Subsidy_Received	string,Cost_Savings_USD float
-
-
-
-
-);
-DESC INTEGRATION tableau_Integration;
-
-select * from TABLEAU_DATASET;
-
-
-ALTER STORAGE INTEGRATION tableau_Integration
-SET STORAGE_ALLOWED_LOCATIONS = ('s3://tableau.project07');
-DESC STORAGE INTEGRATION tableau_Integration;
-
-CREATE STAGE tableau.tableau_Data.tableau_stage
-URL = 's3://tableau.project07'
-STORAGE_INTEGRATION = tableau_Integration;
-//desc stage s1
-
-//drop stage s1;
-
-
-copy into tableau_dataset
-from @tableau_stage
-file_format = (type=csv field_delimiter=',' skip_header=1 )
-on_error = 'continue';
-
-LIST @tableau_stage;
-
-select * from tableau_dataset;
-SELECT region,count(*) from tableau_dataset group by region;
-
-create table energy_consumption as select *from tableau_dataset;
-
-select * from energy_consumption;
-select income_level, count (*) from energy_consumption group by income_level;
-
-
---Increase MONTHLY_USAGE_KWH
--- Update 1
-SELECT DISTINCT income_level FROM energy_consumption;
-UPDATE energy_consumption SET "MONTHLY_USAGE_KWH" = "MONTHLY_USAGE_KWH" * 1.1 WHERE LOWER(income_level) = 'low';
-
--- Update 2
-UPDATE energy_consumption SET monthly_usage_kwh = monthly_usage_kwh * 1.2 WHERE LOWER(TRIM(income_level)) = 'middle';
-
--- Update 3
-SELECT DISTINCT income_level FROM energy_consumption;
-UPDATE energy_consumption SET "MONTHLY_USAGE_KWH" = "MONTHLY_USAGE_KWH" * 1.3 WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'high';
-
---Increase COST_SAVINGS_USD
--- Update 1: Increase COST_SAVINGS_USD by 10% for 'low' income level
-UPDATE energy_consumption
-SET "COST_SAVINGS_USD" = "COST_SAVINGS_USD" * 1.1
+-- Adjust COST_SAVINGS_USD based on income level
+UPDATE energy_consumption 
+SET COST_SAVINGS_USD = COST_SAVINGS_USD * 1.1 
 WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'low';
 
--- Update 2: Increase COST_SAVINGS_USD by 20% for 'middle' income level
-UPDATE energy_consumption
-SET "COST_SAVINGS_USD" = "COST_SAVINGS_USD" * 1.2
+UPDATE energy_consumption 
+SET COST_SAVINGS_USD = COST_SAVINGS_USD * 1.2 
 WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'middle';
 
--- Update 3: Increase COST_SAVINGS_USD by 30% for 'high' income level
-UPDATE energy_consumption
-SET "COST_SAVINGS_USD" = "COST_SAVINGS_USD" * 1.3
+UPDATE energy_consumption 
+SET COST_SAVINGS_USD = COST_SAVINGS_USD * 1.3 
 WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'high';
+```
+
+---
+
+## 📈 **Tableau Setup & Visualization**  
+1. Open **Tableau Desktop**.  
+2. Connect to **Snowflake** using the Snowflake connector.  
+3. Enter:  
+   - **Snowflake account identifier, username, password**  
+   - **Database: `tableau`**  
+   - **Schema: `tableau_data`**  
+   - **Warehouse: (your warehouse name)**  
+4. Use `energy_consumption` table to build **visualizations & dashboards.**  
+
+---
+
+## 📊 **Data Visualizations & Dashboards**  
+
+💡 **Tableau Insights**:  
+📌 Interactive dashboards created for **energy usage trends, cost savings, and adoption patterns.**  
+
+### **Sample Dashboard Screenshots:**  
+
+![Dashboard 1](https://github.com/user-attachments/assets/75cb98ba-db9e-4b58-9024-bb2ee940c3e6)  
+
+![Dashboard 2](https://github.com/user-attachments/assets/125d86ec-9c6b-4797-8e43-e9a60801bf67)  
+
+![Dashboard 3](https://github.com/user-attachments/assets/8ed276cf-ca96-4f87-a18e-4fe888c23364)  
+
+---
+
+## 📥 **How to Use the Project**  
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/Medha-77/Sustainability-Analysis-of-Renewable-Energy-Resources.git
+   ```
+2. Open `ENERGY CONSUMPTION.twb` in Tableau.  
+3. Explore **interactive dashboards & insights!**  
+
+---
+
+## 🎯 **Key Skills Demonstrated in This Project**  
+✅ **Data Warehousing (Snowflake)** – Managing large datasets in a structured format.  
+✅ **Cloud Storage (AWS S3)** – Secure data storage and integration.  
+✅ **ETL Process** – Data extraction, transformation, and loading.  
+✅ **SQL Data Transformation** – Cleaning, standardizing, and optimizing data.  
+✅ **Data Visualization (Tableau)** – Creating insightful dashboards and reports.  
+
+---
+
+## 🔗 **Live Project & Repository**  
+📌 **GitHub Repo:** [Sustainability Analysis of Renewable Energy Resources](https://github.com/Medha-77/Sustainability-Analysis-of-Renewable-Energy-Resources)  # Project: Renewable Energy Resource Analysis
 
