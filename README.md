@@ -35,13 +35,17 @@ The insights help in **energy planning and resource optimization.**
 
 ## 📂 **Project Structure**  
 /data/                   # [Optional] Could contain sample CSV data files
+
 /sql/                    # Snowflake SQL scripts for data management
+
     create_integration.sql           # Creates Storage Integration with AWS S3
     create_database_schema_table.sql # Creates database, schema, and table
     create_stage.sql                 # Creates external stage for S3 connection
     load_data.sql                     # Loads CSV data from S3 into Snowflake
     transform_data.sql                # Cleans and transforms data
+    
 /tableau/                # Contains Tableau workbook (.twb or .twbx) file
+
 README.md               # Project documentation
 
 
