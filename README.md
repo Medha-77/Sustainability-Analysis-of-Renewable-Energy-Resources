@@ -14,15 +14,6 @@ The insights help in **energy planning and resource optimization.**
 
 ---  
 
-## 🏆 **Key Insights from the Analysis**  
-✅ **Renewable energy adoption is higher in urban areas**, with solar and wind energy being the dominant sources.  
-✅ **Lower-income households tend to consume less energy**, but **cost savings are higher** due to subsidies.  
-✅ **High-income groups benefit more from long-term savings**, as they invest more in energy-efficient systems.  
-✅ **Regions with higher adoption rates have lower average monthly energy costs.**  
-✅ **Government subsidies play a significant role in increasing renewable energy adoption.**  
-
----  
-
 ## 🛠 **Technologies Used**  
 
 | Technology  | Purpose  |
