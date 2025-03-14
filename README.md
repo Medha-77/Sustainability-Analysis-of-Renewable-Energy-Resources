@@ -34,7 +34,7 @@ The insights help in **energy planning and resource optimization.**
 ---
 
 ## 📂 **Project Structure**  
-/data/                   # [Optional] Could contain sample CSV data files
+/data/                   # contain sample CSV data files
 
 /sql/                    # Snowflake SQL scripts for data management
 
