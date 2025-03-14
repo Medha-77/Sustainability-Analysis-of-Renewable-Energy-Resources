@@ -34,7 +34,6 @@ The insights help in **energy planning and resource optimization.**
 ---
 
 ## 📂 **Project Structure**  
-```
 /data/                   # [Optional] Could contain sample CSV data files
 /sql/                    # Snowflake SQL scripts for data management
     create_integration.sql           # Creates Storage Integration with AWS S3
@@ -44,7 +43,7 @@ The insights help in **energy planning and resource optimization.**
     transform_data.sql                # Cleans and transforms data
 /tableau/                # Contains Tableau workbook (.twb or .twbx) file
 README.md               # Project documentation
-```
+
 
 ---
 
@@ -56,7 +55,7 @@ README.md               # Project documentation
 - **Tableau Desktop installed**  
 
 ### 🔹 **AWS S3 Configuration**  
-1. Create an **S3 bucket** (e.g., `tableau.project07`) in a region supported by Snowflake.  
+1. Create an **S3 bucket** (e.g., tableau.project07) in a region supported by Snowflake.  
 2. Upload your **renewable energy data (CSV format)** to the S3 bucket.  
 
 ---
@@ -64,7 +63,7 @@ README.md               # Project documentation
 ## 📊 **Snowflake SQL Code for Data Management & Transformation**  
 
 ### **1️⃣ Create Database, Schema, and Table**  
-```sql
+sql
 CREATE database tableau;
 CREATE schema tableau_Data;
 CREATE table tableau_dataset (
@@ -81,10 +80,10 @@ CREATE table tableau_dataset (
     Subsidy_Received STRING,
     Cost_Savings_USD FLOAT
 );
-```
+
 
 ### **2️⃣ Create a Secure Storage Integration with AWS S3**  
-```sql
+sql
 CREATE OR REPLACE STORAGE INTEGRATION Tableau_Integration
     TYPE = EXTERNAL_STAGE
     STORAGE_PROVIDER = 'S3'
@@ -93,25 +92,25 @@ CREATE OR REPLACE STORAGE INTEGRATION Tableau_Integration
     STORAGE_ALLOWED_LOCATIONS = ('s3://YOUR_S3_BUCKET/')
     COMMENT = 'Snowflake integration with AWS S3 for Tableau data';
 DESC INTEGRATION Tableau_Integration;
-```
+
 
 ### **3️⃣ Create External Stage for Data Loading**  
-```sql
+sql
 CREATE STAGE tableau.tableau_Data.tableau_stage
     URL = 's3://YOUR_S3_BUCKET'
     STORAGE_INTEGRATION = Tableau_Integration;
-```
+
 
 ### **4️⃣ Load Data from S3 into Snowflake**  
-```sql
+sql
 COPY INTO tableau_dataset
 FROM @tableau_stage
 FILE_FORMAT = (TYPE=CSV FIELD_DELIMITER=',' SKIP_HEADER=1)
 ON_ERROR = 'continue';
-```
+
 
 ### **5️⃣ Data Transformation: Adjusting Consumption & Cost Savings**  
-```sql
+sql
 CREATE TABLE energy_consumption AS SELECT * FROM tableau_dataset;
 
 -- Adjust MONTHLY_USAGE_KWH based on income level
@@ -139,7 +138,7 @@ WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'middle';
 UPDATE energy_consumption 
 SET COST_SAVINGS_USD = COST_SAVINGS_USD * 1.3 
 WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'high';
-```
+
 
 ---
 
@@ -148,10 +147,10 @@ WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'high';
 2. Connect to **Snowflake** using the Snowflake connector.  
 3. Enter:  
    - **Snowflake account identifier, username, password**  
-   - **Database: `tableau`**  
-   - **Schema: `tableau_data`**  
+   - **Database: tableau**  
+   - **Schema: tableau_data**  
    - **Warehouse: (your warehouse name)**  
-4. Use `energy_consumption` table to build **visualizations & dashboards.**  
+4. Use energy_consumption table to build **visualizations & dashboards.**  
 
 ---
 
@@ -161,22 +160,18 @@ WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'high';
 📌 Interactive dashboards created for **energy usage trends, cost savings, and adoption patterns.**  
 
 ### **Sample Dashboard Screenshots:**  
-
-![Dashboard 1](https://github.com/user-attachments/assets/75cb98ba-db9e-4b58-9024-bb2ee940c3e6)  
-
-![Dashboard 2](https://github.com/user-attachments/assets/125d86ec-9c6b-4797-8e43-e9a60801bf67)  
-
-![Dashboard 3](https://github.com/user-attachments/assets/8ed276cf-ca96-4f87-a18e-4fe888c23364)  
-
----
+![Image](https://github.com/user-attachments/assets/75cb98ba-db9e-4b58-9024-bb2ee940c3e6)
+![Image](https://github.com/user-attachments/assets/125d86ec-9c6b-4797-8e43-e9a60801bf67)
+![Image](https://github.com/user-attachments/assets/8ed276cf-ca96-4f87-a18e-4fe888c23364)
+![Image](https://github.com/user-attachments/assets/867eaa30-f258-4ee8-a2c3-ff86a945a31a)
+![Image](https://github.com/user-attachments/assets/88a185b4-b363-42e6-bab9-abd00e5ec926)
+![Image](https://github.com/user-attachments/assets/21523090-0a16-40e2-9aad-22b17184d985)
+![Image](https://github.com/user-attachments/assets/1f1d24fc-4a66-498f-a9e7-6aa368927587)
 
 ## 📥 **How to Use the Project**  
-1. Clone the repository:  
-   ```bash
-   git clone https://github.com/Medha-77/Sustainability-Analysis-of-Renewable-Energy-Resources.git
-   ```
-2. Open `ENERGY CONSUMPTION.twb` in Tableau.  
-3. Explore **interactive dashboards & insights!**  
+
+1. Open https://github.com/Medha-77/Sustainability-Analysis-of-Renewable-Energy-Resources/blob/main/ENERGY%20CONSUMPTION.twb in Tableau.  
+2. Explore **interactive dashboards & insights!**  
 
 ---
 
@@ -190,5 +185,6 @@ WHERE LOWER(TRIM(COALESCE(income_level, ''))) = 'high';
 ---
 
 ## 🔗 **Live Project & Repository**  
-📌 **GitHub Repo:** [Sustainability Analysis of Renewable Energy Resources](https://github.com/Medha-77/Sustainability-Analysis-of-Renewable-Energy-Resources)  # Project: Renewable Energy Resource Analysis
+📌 **GitHub Repo:** [Sustainability Analysis of Renewable Energy Resources](https://github.com/Medha-77/Sustainability-Analysis-of-Renewable-Energy-Resources)  
+
 
